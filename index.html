@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Phase 1: Color Theme Selection -->
+    <section class="phase phase-1 active" id="phase1">
+        <div class="phase-container">
+            <div class="selection-content">
+                <h1 class="selection-title">Choose your atmosphere</h1>
+                <div class="palette-grid">
+                    <div class="palette-card" data-theme="rose-beige">
+                        <div class="palette-preview">
+                            <div class="palette-gradient"></div>
+                            <div class="palette-grain"></div>
+                        </div>
+                        <div class="palette-name">Rose-Beige</div>
+                    </div>
+                    <div class="palette-card" data-theme="lavender-dusk">
+                        <div class="palette-preview">
+                            <div class="palette-gradient"></div>
+                            <div class="palette-grain"></div>
+                        </div>
+                        <div class="palette-name">Lavender Dusk</div>
+                    </div>
+                    <div class="palette-card" data-theme="soft-ivory">
+                        <div class="palette-preview">
+                            <div class="palette-gradient"></div>
+                            <div class="palette-grain"></div>
+                        </div>
+                        <div class="palette-name">Soft Ivory</div>
+                    </div>
+                </div>
+                <button class="continue-btn" id="continueBtn">
+                    <span class="btn-text">Continue</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 2: Welcome Screen -->
+    <section class="phase phase-2" id="phase2">
+        <div class="film-grain"></div>
+        <div class="particles-container" id="particles"></div>
+        <div class="light-path"></div>
+        
+        <div class="phase-container">
+            <div class="welcome-content">
+                <h1 class="welcome-title">Welcome home, queen.</h1>
+                <p class="welcome-subtitle">You've been missed by more than just the walls.</p>
+                <button class="enter-btn" id="enterBtn">
+                    <span class="btn-text">Enter</span>
+                    <div class="btn-breath"></div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 3: Greeting & Letter -->
+    <section class="phase phase-3" id="phase3">
+        <div class="film-grain"></div>
+        <div class="constellation-bg" id="constellation"></div>
+        
+        <div class="phase-container">
+            <!-- Greeting Panel -->
+            <div class="greeting-panel" id="greetingPanel">
+                <div class="panel-halo"></div>
+                <div class="panel-content">
+                    <p class="greeting-line">I hope the world feels gentler around you now.</p>
+                    <p class="greeting-line">I hope your room remembers your breathing.</p>
+                    <p class="greeting-line">I can't wait for you to meet Amarah and the babies.</p>
+                    
+                    <div class="cat-divider">
+                        <div class="cat-silhouette" id="catSilhouette">
+                            <div class="cat-ear left"></div>
+                            <div class="cat-ear right"></div>
+                            <div class="cat-face"></div>
+                        </div>
+                    </div>
+                    
+                    <p class="greeting-line">Everything feels more complete with you here.</p>
+                </div>
+            </div>
+
+            <!-- Letter Section -->
+            <div class="letter-section">
+                <h2 class="letter-prompt">Would you like to read your letter?</h2>
+                <div class="letter-buttons">
+                    <button class="letter-btn yes-btn" id="yesBtn">
+                        <span>Yes</span>
+                    </button>
+                    <button class="letter-btn later-btn" id="laterBtn">
+                        <span>Later</span>
+                    </button>
+                </div>
+                <p class="later-message" id="laterMessage">Take your time. I'm here.</p>
+            </div>
+        </div>
+
+        <!-- Letter Modal -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="letter-modal">
+                <div class="modal-vignette"></div>
+                <div class="modal-constellation"></div>
+                <div class="cat-watermark"></div>
+                
+                <div class="modal-content">
+                    <div class="letter-text">
+                        <!-- PLACE LETTER HERE -->
+                        <p>My dearest,</p>
+                        <p>There are moments when words feel inadequate, but I'll try anyway.</p>
+                        <p>Seeing you walk through the door after time apart reminds me how much light you bring into every space you inhabit. The air feels different when you're near - charged with possibility, softened with comfort.</p>
+                        <p>I hope you know how deeply you're cherished, not just for what you do, but for who you are at your very core. Your strength, your gentleness, the way your laughter fills a room - these are the things that make this place a home.</p>
+                        <p>Rest now. Let the world wait while you settle back into yourself. There's tea waiting when you're ready, and quiet company if you want it.</p>
+                        <p>Always,</p>
+                    </div>
+                    <button class="close-modal-btn" id="closeModalBtn">
+                        <span>Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-divider"></div>
+            <div class="footer-content">
+                <div class="footer-cat"></div>
+                <p class="footer-text">
+                    made with quiet intention. 
+                    <span class="star-icon">
+                        ★
+                        <span class="tooltip">a quiet poem</span>
+                    </span>
+                </p>
+            </div>
+        </footer>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
