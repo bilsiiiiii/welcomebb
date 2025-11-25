@@ -2,6 +2,10 @@ class WelcomeHomeExperience {
     constructor() {
         this.currentTheme = 'rose-beige';
         this.currentPhase = 1;
+        this.musicEnabled = false;
+        this.audioContext = null;
+        this.audioElement = null;
+        this.musicButton = null;
         this.init();
     }
 
@@ -12,6 +16,7 @@ class WelcomeHomeExperience {
         this.setupParticles();
         this.setupConstellation();
         this.setupParallax();
+        this.setupMusic();
     }
 
     setupThemeSelection() {
@@ -96,6 +101,192 @@ class WelcomeHomeExperience {
 
         // Greeting panel animation on scroll
         this.setupScrollAnimations();
+    }
+
+    setupMusic() {
+        // Create audio element
+        this.audioElement = new Audio();
+        this.audioElement.loop = true;
+        this.audioElement.volume = 0.3;
+        this.audioElement.preload = 'auto';
+        
+        // Use base64 encoded silent audio as fallback
+        // In production, replace this with your actual ambient music file
+        this.audioElement.src = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAABAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AAABQTEFNRTMuMTAwBKkAAAAAAAAAADUgJAOHQQAB9AAACHDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//tQxAAAAAAAAAAAAAAAAAAAAAAAASAAAAAAA';
+        
+        // Create minimal music toggle
+        this.createMusicToggle();
+    }
+
+    createMusicToggle() {
+        this.musicButton = document.createElement('button');
+        this.musicButton.className = 'music-toggle';
+        this.musicButton.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M15 10C15 8.89543 14.1046 8 13 8C11.8954 8 11 8.89543 11 10C11 11.1046 11.8954 12 13 12C14.1046 12 15 11.1046 15 10Z"/>
+                <path d="M8 10C8 8.89543 7.10457 8 6 8C4.89543 8 4 8.89543 4 10C4 11.1046 4.89543 12 6 12C7.10457 12 8 11.1046 8 10Z"/>
+                <path d="M13 8V4L18 6L13 8Z"/>
+            </svg>
+        `;
+        
+        this.musicButton.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border: none;
+            border-radius: 50%;
+            color: var(--text);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition-medium);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        `;
+
+        this.musicButton.addEventListener('click', () => this.toggleMusic());
+        this.musicButton.addEventListener('mouseenter', () => {
+            this.musicButton.style.opacity = '1';
+            this.musicButton.style.transform = 'scale(1.1)';
+        });
+        this.musicButton.addEventListener('mouseleave', () => {
+            if (!this.musicEnabled) {
+                this.musicButton.style.opacity = '0.7';
+            }
+            this.musicButton.style.transform = 'scale(1)';
+        });
+
+        document.body.appendChild(this.musicButton);
+    }
+
+    async toggleMusic() {
+        if (!this.musicEnabled) {
+            // Enable music
+            try {
+                // For demo purposes, we'll create a simple oscillator
+                // In production, replace this with your actual audio file loading
+                await this.playAmbientMusic();
+                this.musicEnabled = true;
+                this.musicButton.style.opacity = '1';
+                this.musicButton.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M6 4L6 16M10 4L10 16M14 4L14 16"/>
+                    </svg>
+                `;
+            } catch (error) {
+                console.log('Audio playback failed:', error);
+                // Fallback: create a simple oscillator for ambient sound
+                this.createFallbackAudio();
+            }
+        } else {
+            // Disable music
+            this.stopMusic();
+            this.musicEnabled = false;
+            this.musicButton.style.opacity = '0.7';
+            this.musicButton.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M15 10C15 8.89543 14.1046 8 13 8C11.8954 8 11 8.89543 11 10C11 11.1046 11.8954 12 13 12C14.1046 12 15 11.1046 15 10Z"/>
+                    <path d="M8 10C8 8.89543 7.10457 8 6 8C4.89543 8 4 8.89543 4 10C4 11.1046 4.89543 12 6 12C7.10457 12 8 11.1046 8 10Z"/>
+                    <path d="M13 8V4L18 6L13 8Z"/>
+                </svg>
+            `;
+        }
+    }
+
+    async playAmbientMusic() {
+    // Stop any existing audio
+    this.stopMusic();
+    
+    // Load your actual music file
+    this.audioElement.src = 'ambient-music.mp3'; // or .ogg, .wav
+    this.audioElement.volume = 0.3;
+    
+    try {
+        await this.audioElement.play();
+        this.musicEnabled = true;
+        this.musicButton.style.opacity = '1';
+        this.musicButton.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M6 4L6 16M10 4L10 16M14 4L14 16"/>
+            </svg>
+        `;
+    } catch (error) {
+        console.log('Music file playback failed:', error);
+        // Fall back to generated audio
+        this.createFallbackAudio();
+    }
+}
+
+    createVolumeBreathing() {
+        if (!this.gainNode) return;
+        
+        // Create a gentle, slow volume modulation
+        const now = this.audioContext.currentTime;
+        this.gainNode.gain.setValueAtTime(0.08, now);
+        this.gainNode.gain.exponentialRampToValueAtTime(0.12, now + 4);
+        this.gainNode.gain.exponentialRampToValueAtTime(0.08, now + 8);
+        
+        // Repeat the breathing pattern
+        this.breathingInterval = setInterval(() => {
+            const now = this.audioContext.currentTime;
+            this.gainNode.gain.setValueAtTime(0.08, now);
+            this.gainNode.gain.exponentialRampToValueAtTime(0.12, now + 4);
+            this.gainNode.gain.exponentialRampToValueAtTime(0.08, now + 8);
+        }, 8000);
+    }
+
+    createFallbackAudio() {
+        // Simple fallback if Web Audio API fails
+        try {
+            this.audioElement.volume = 0.3;
+            this.audioElement.play().then(() => {
+                this.musicEnabled = true;
+                this.musicButton.style.opacity = '1';
+                this.musicButton.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M6 4L6 16M10 4L10 16M14 4L14 16"/>
+                    </svg>
+                `;
+            });
+        } catch (error) {
+            console.log('Fallback audio also failed:', error);
+        }
+    }
+
+    stopMusic() {
+        // Stop Web Audio API oscillators
+        if (this.oscillators) {
+            this.oscillators.forEach(osc => {
+                try {
+                    osc.stop();
+                    osc.disconnect();
+                } catch (e) {
+                    // Oscillator might already be stopped
+                }
+            });
+            this.oscillators = null;
+        }
+        
+        // Clear breathing interval
+        if (this.breathingInterval) {
+            clearInterval(this.breathingInterval);
+            this.breathingInterval = null;
+        }
+        
+        // Stop HTML5 audio
+        if (this.audioElement) {
+            this.audioElement.pause();
+            this.audioElement.currentTime = 0;
+        }
+        
+        // Close audio context
+        if (this.audioContext && this.audioContext.state !== 'closed') {
+            this.audioContext.close();
+        }
     }
 
     setupParticles() {
@@ -242,14 +433,29 @@ class WelcomeHomeExperience {
             line.style.transitionDelay = `${index * 0.1}s`;
         });
     }
+
+    // Cleanup method to stop music when needed
+    destroy() {
+        this.stopMusic();
+        if (this.musicButton && this.musicButton.parentNode) {
+            this.musicButton.parentNode.removeChild(this.musicButton);
+        }
+    }
 }
 
 // Initialize the experience when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new WelcomeHomeExperience();
+    window.welcomeExperience = new WelcomeHomeExperience();
 });
 
 // Handle window resize
 window.addEventListener('resize', () => {
     // Recalculate any layout-dependent animations if needed
+});
+
+// Clean up on page unload
+window.addEventListener('beforeunload', () => {
+    if (window.welcomeExperience) {
+        window.welcomeExperience.destroy();
+    }
 });
