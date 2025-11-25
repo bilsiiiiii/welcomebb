@@ -838,3 +838,32 @@ footer {
         font-size: 1.5rem;
     }
 }
+/* Music Toggle */
+.music-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    border: none;
+    border-radius: 50%;
+    color: var(--text);
+    cursor: pointer;
+    opacity: 0.7;
+    transition: var(--transition-medium);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-toggle:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.music-toggle svg {
+    width: 20px;
+    height: 20px;
+}
