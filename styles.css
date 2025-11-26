@@ -867,3 +867,252 @@ footer {
     width: 20px;
     height: 20px;
 }
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .phase-container {
+        padding: 0 1rem;
+    }
+
+    .selection-title {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .palette-grid {
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .palette-card {
+        width: 140px;
+        height: 180px;
+    }
+
+    .continue-btn {
+        padding: 14px 35px;
+        font-size: 1.1rem;
+    }
+
+    .welcome-title {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .welcome-subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 3rem;
+        padding: 0 1rem;
+    }
+
+    .enter-btn {
+        padding: 16px 40px;
+        font-size: 1.2rem;
+    }
+
+    .greeting-panel {
+        padding: 2rem 1.5rem;
+        margin: 2rem 1rem;
+        border-radius: 16px;
+    }
+
+    .greeting-line {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .cat-divider {
+        margin: 2rem 0;
+        padding: 1.5rem 0;
+    }
+
+    .cat-silhouette {
+        width: 50px;
+        height: 30px;
+    }
+
+    .letter-prompt {
+        font-size: 1.6rem;
+        margin-bottom: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .letter-buttons {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .letter-btn {
+        width: 100%;
+        padding: 14px 0;
+    }
+
+    .later-message {
+        font-size: 1.1rem;
+    }
+
+    .letter-modal {
+        width: 95%;
+        margin: 1rem;
+    }
+
+    .modal-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .letter-text {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .letter-text p {
+        margin-bottom: 1.2rem;
+    }
+
+    .close-modal-btn {
+        width: 100%;
+        padding: 12px 0;
+    }
+
+    footer {
+        margin-top: 4rem;
+        padding: 1.5rem 0;
+    }
+
+    .footer-divider {
+        width: 80px;
+        margin-bottom: 1.5rem;
+    }
+
+    .music-toggle {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .selection-title {
+        font-size: 1.8rem;
+    }
+
+    .palette-card {
+        width: 120px;
+        height: 160px;
+    }
+
+    .welcome-title {
+        font-size: 2.5rem;
+    }
+
+    .welcome-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .greeting-panel {
+        padding: 1.5rem 1rem;
+    }
+
+    .greeting-line {
+        font-size: 1.1rem;
+    }
+
+    .letter-prompt {
+        font-size: 1.4rem;
+    }
+
+    .letter-modal {
+        width: 98%;
+        margin: 0.5rem;
+    }
+
+    .modal-content {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* Mobile-specific optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .palette-card:hover {
+        transform: none;
+    }
+
+    .palette-card:active {
+        transform: scale(0.98);
+    }
+
+    .continue-btn:hover,
+    .enter-btn:hover,
+    .letter-btn:hover {
+        transform: none;
+    }
+
+    .continue-btn:active,
+    .enter-btn:active,
+    .letter-btn:active {
+        transform: scale(0.98);
+    }
+
+    .cat-silhouette:hover {
+        transform: none;
+    }
+
+    .cat-silhouette:active {
+        transform: translateY(-3px);
+    }
+}
+
+/* Prevent zoom on input for mobile */
+@media (max-width: 768px) {
+    input,
+    textarea,
+    select {
+        font-size: 16px; /* Prevents zoom on focus in iOS */
+    }
+}
+
+/* Improved touch targets */
+.palette-card,
+.continue-btn,
+.enter-btn,
+.letter-btn,
+.close-modal-btn {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Music toggle mobile styles */
+.music-toggle {
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 768px) {
+    .music-toggle:active {
+        transform: scale(0.95);
+    }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+    .particle {
+        animation-duration: 30s !important; /* Slower animations for better performance */
+    }
+    
+    .film-grain {
+        opacity: 0.02; /* Reduce grain intensity on mobile */
+    }
+}
+
+/* Safe area insets for notch phones */
+@supports (padding: max(0px)) {
+    .phase-container {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+    
+    .music-toggle {
+        right: max(15px, env(safe-area-inset-right));
+        bottom: max(15px, env(safe-area-inset-bottom));
+    }
+}
