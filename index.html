@@ -168,5 +168,20 @@
     </section>
 
     <script src="script.js"></script>
+    <!-- Add this before closing body tag -->
+<script>
+// Debug music loading
+window.addEventListener('load', function() {
+    const audio = new Audio('ambient-music.mp3');
+    audio.addEventListener('canplaythrough', () => {
+        console.log('✓ Music file can play');
+    });
+    audio.addEventListener('error', (e) => {
+        console.error('✗ Music file error:', e);
+        console.log('Check: 1) File exists 2) Correct path 3) File not corrupted');
+    });
+});
+</script>
 </body>
 </html>
+
